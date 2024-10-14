@@ -2,12 +2,19 @@ import { useEffect, useState } from "react";
 
 const UseEffect = () => {
 
-    const [posts, setPost] = useState([]);
-    const [carregando, setCarregando] = useState(true);
-    const [erro, setErro] = useState(null);
-///////////////// useStates exemplo simples ///////////////
-    const [mudarTitulo, setMudarTitulo] = useState(0);
+    // const [posts, setPost] = useState([]);
+    // const [carregando, setCarregando] = useState(true);
+    // const [erro, setErro] = useState(null);
+    ///////////////// useStates exemplo simples ///////////////
+    const [cor, setCor] = useState(0);
+    const [frase, setFrase] = useState('');
 
+    const cores = ['#ff5733', '#33ff57', '#3357ff', '#ff33a1', '#f3ff33'];
+
+    const atualizerCor = () => {
+        setCor((Cor) => (Cor + 1) % cores.length);
+        setFrase('Você utilizou o useEffect')
+    }
     useEffect(() => {
         // const GetPosts = async () => {
         //     try {
@@ -24,14 +31,11 @@ const UseEffect = () => {
         //     }
         // }
         // GetPosts();
-//////////////////////// exemplo simples //////////////////////////////////
-        document.title = `Contador: ${mudarTitulo}`;
+        //////////////////////// exemplo simples //////////////////////////////////
 
-        return() => {
-            document.title = `useEffect ativo.`;
-        }
-/////////////////////// fim exemplo simples ///////////////////////////////
-    }, [mudarTitulo]);
+        document.title = frase;
+        /////////////////////// fim exemplo simples ///////////////////////////////
+    }, [frase]);
 
     // if (carregando) return <p>Carregando...</p>;
     // if (erro) return <p>{erro}</p>;
@@ -41,8 +45,13 @@ const UseEffect = () => {
             <div className="card " >
                 <div className="card-body">
                     <h4 className="card-text">O useEffect é um hook do React que permite executar efeitos colaterais em componentes funcionais. Isso pode incluir operações como chamadas de API, manipulação de DOM, ou a configuração de timers. O useEffect é chamado após a renderização do componente, permitindo que você responda a mudanças no estado ou nas propriedades.</h4>
-                    <button className="btn btn-success" onClick={() => setMudarTitulo(mudarTitulo + 1)}>Incrementar</button>
-                    <h3>{mudarTitulo}</h3>
+
+
+                    <div style={{ backgroundColor: cores[cor], padding: '20px', textAlign: 'center' }}>
+                        <h1>{frase}</h1>
+                        <button className="btn btn-dark" onClick={atualizerCor}>Clique aqui</button>
+                    </div>
+
                     {/* <ul>
                         {posts.map(post => (
                             <li key={post.id}>
